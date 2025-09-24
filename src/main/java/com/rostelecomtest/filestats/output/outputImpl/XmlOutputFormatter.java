@@ -1,6 +1,7 @@
-package com.rostelecomtest.filestats.output;
+package com.rostelecomtest.filestats.output.outputImpl;
 
 import com.rostelecomtest.filestats.core.ExtensionStats;
+import com.rostelecomtest.filestats.output.OutputFormatter;
 
 import java.util.Map;
 

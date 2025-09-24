@@ -1,77 +1,37 @@
-package com.rostelecomtest.cli;
+package com.rostelecomtest.filestats.cli;
 
-import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
-import picocli.CommandLine.Command;
+import picocli.CommandLine;
 
+import java.util.*;
 
-@Command(
-        name = "filestats",
-        mixinStandardHelpOptions = true,
-        version = "FileStats 1.0",
-        description = "Собирает статистику по файлам в директории"
-)
-public class Arguments implements Runnable {
+/**
+ * CLI-параметры для утилиты FileStats.
+ */
+public class Arguments {
 
-    @Parameters(index = "0", description = "Путь к каталогу для выполнения анализа")
-    private String path;
+    @CommandLine.Parameters(index = "0", description = "Путь до каталога для анализа")
+    public String path;
 
-    @Option(names = "--recursive", description = "Рекурсивный обход подкаталогов")
-    private boolean recursive;
+    @CommandLine.Option(names = "--recursive", description = "Рекурсивный обход подкаталогов")
+    public boolean recursive = false;
 
-    @Option(names = "--max-depth", description = "Максимальная глубина обхода (по умолчанию без ограничений)")
-    private int maxDepth;
+    @CommandLine.Option(names = "--max-depth", description = "Максимальная глубина обхода")
+    public Integer maxDepth;
 
-    @Option(names = "--threads", description = "Количество потоков для анализа (по умолчанию 1)")
-    private int threads = 1;
+    @CommandLine.Option(names = "--thread", description = "Количество потоков для обработки")
+    public int threads = 1;
 
-    @Option(names = "--include-ext", split = ",", description = "Обрабатывать только указанные расширения файлов")
-    private String[] includeExt;
+    @CommandLine.Option(names = "--include-ext", split = ",", description = "Обрабатывать только указанные" +
+            " расширения файлов (через запятую)")
+    public Set<String> includeExt = new HashSet<>();
 
-    @Option(names = "--exclude-ext", split = ",", description = "Исключить указанные расширения файлов")
-    private String[] excludeExt;
+    @CommandLine.Option(names = "--exclude-ext", split = ",", description = "Исключить файлы с этими расширениями" +
+            " (через запятую)")
+    public Set<String> excludeExt = new HashSet<>();
 
-    @Option(names = "--output", description = "Формат вывода: plain, json, xml (по умолчанию plain)")
-    private String output = "plain";
+    @CommandLine.Option(names = "--git-ignore", description = "Игнорировать файлы из .gitignore")
+    public boolean gitIgnore = false;
 
-    @Override
-    public void run() {
-        System.out.println("Директория = " + path);
-        System.out.println("Рекурсивный обход = " + recursive);
-        System.out.println("Максимальная глубина рекурсивного обхода = " + maxDepth);
-        System.out.println("Количество потоков для анализа = " + threads);
-        System.out.println("Обрабатываемые расширения файлов = " + (includeExt == null ? "null" :
-                String.join(",", includeExt)));
-        System.out.println("Исключить расширения файлов = " + (excludeExt == null ? "null" :
-                String.join(",", excludeExt)));
-        System.out.println("Формат вывода (plain, json, xml) = " + output);
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public boolean isRecursive() {
-        return recursive;
-    }
-
-    public int getMaxDepth() {
-        return maxDepth;
-    }
-
-    public int getThreads() {
-        return threads;
-    }
-
-    public String[] getIncludeExt() {
-        return includeExt;
-    }
-
-    public String[] getExcludeExt() {
-        return excludeExt;
-    }
-
-    public String getOutput() {
-        return output;
-    }
+    @CommandLine.Option(names = "--output", description = "Формат вывода: plain, json, xml", defaultValue = "plain")
+    public String output = "plain";
 }

@@ -1,8 +1,9 @@
-package com.rostelecomtest.filestats.output;
+package com.rostelecomtest.filestats.output.outputImpl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rostelecomtest.filestats.core.ExtensionStats;
+import com.rostelecomtest.filestats.output.OutputFormatter;
 
 import java.util.Map;
 
