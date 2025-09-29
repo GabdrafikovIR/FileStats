@@ -30,7 +30,7 @@ public class ParallelStatsAggregator extends StatsAggregator {
                 try {
                     return processor.processFile(file);
                 } catch (IOException e) {
-                    System.err.println("⚠ Ошибка чтения файла: " + file + " — " + e.getMessage());
+                    System.err.println("Ошибка чтения файла: " + file + " — " + e.getMessage());
                     return null;
                 }
             }));
@@ -45,7 +45,7 @@ public class ParallelStatsAggregator extends StatsAggregator {
                           .addFileStats(Path.of(stats.getFilePath()), stats);
                 }
             } catch (InterruptedException | ExecutionException e) {
-                System.err.println("⚠ Ошибка выполнения задачи: " + e.getMessage());
+                System.err.println("Ошибка выполнения задачи: " + e.getMessage());
             }
         }
 

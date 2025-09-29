@@ -3,6 +3,9 @@ package com.rostelecomtest.filestats.core;
 
 import lombok.Getter;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 @Getter
 public class ExtensionStats {
     private final String extension;  // расширение, например "java" или "sh"
@@ -16,10 +19,10 @@ public class ExtensionStats {
         this.extension = extension;
     }
 
-    public void addFileStats(java.nio.file.Path file, Stats stats) {
+    public void addFileStats(Path file, Stats stats) {
         fileCount++;
         try {
-            totalSizeBytes += java.nio.file.Files.size(file);
+            totalSizeBytes += Files.size(file);
         } catch (Exception ignored) {
             // если не удалось получить размер файла — пропускаем
         }
